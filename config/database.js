@@ -10,13 +10,13 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME
 });
 
-pool.getConnection((err, connection) => {
-    if (err) {
-        console.error('Erro ao conectar no MySQL:', err);
-    } else {
-        console.log('Conexão com o banco MySQL estabelecida com sucesso!');
-        connection.release(); // libera a conexão de volta para o pool
-    }
-});
+// pool.getConnection((err, connection) => {
+//     if (err) {
+//         console.error('Erro ao conectar no MySQL:', err);
+//     } else {
+//         console.log('Conexão com o banco MySQL estabelecida com sucesso!');
+//         connection.release(); // libera a conexão de volta para o pool
+//     }
+// });
 
 module.exports = pool;
