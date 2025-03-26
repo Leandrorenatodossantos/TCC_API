@@ -7,13 +7,31 @@ exports.getUsuarios = (req, res) => {
     });
 };
 
+// exports.createUsuario = (req, res) => {
+//     const { nome, email, senha } = req.body;
+//     db.query('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)', 
+//         [nome, email, senha], (err, result) => {
+//         if (err) res.status(500).json({ error: err });
+//         else res.json({ message: 'Usuário criado com sucesso!' });
+//     });
+// };
 exports.createUsuario = (req, res) => {
     const { nome, email, senha } = req.body;
-    db.query('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)', 
-        [nome, email, senha], (err, result) => {
-        if (err) res.status(500).json({ error: err });
-        else res.json({ message: 'Usuário criado com sucesso!' });
-    });
+    db.query(
+        'INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)',
+        [nome, email, senha],
+        (err, result) => {
+            if (err) {
+                if (err.code === 'ER_DUP_ENTRY') {
+                    res.status(400).json({ message: 'E-mail já cadastrado.' });
+                } else {
+                    res.status(500).json({ error: err });
+                }
+            } else {
+                res.json({ message: 'Usuário criado com sucesso!' });
+            }
+        }
+    );
 };
 
 exports.updateUsuario = (req, res) => {
