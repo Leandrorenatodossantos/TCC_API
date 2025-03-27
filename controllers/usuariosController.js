@@ -17,9 +17,13 @@ exports.getUsuarios = (req, res) => {
 // };
 exports.createUsuario = (req, res) => {
     const { nome, email, senha } = req.body;
+
+    // Gera hash da senha
+    const hashedPassword = bcrypt.hashSync(senha, 10); // 10 é o salt rounds
+
     db.query(
         'INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)',
-        [nome, email, senha],
+        [nome, email, hashedPassword],
         (err, result) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
