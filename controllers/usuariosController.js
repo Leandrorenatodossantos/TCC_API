@@ -1,5 +1,6 @@
 const db = require('../config/database');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // ✅ Buscar todos os usuários
 exports.getUsuarios = (req, res) => {
@@ -75,8 +76,14 @@ exports.login = (req, res) => {
             return res.status(401).json({ message: 'Senha incorreta.' });
         }
 
+        const token = jwt.sign(
+            { id: usuario.id, email: usuario.email },
+            process.env.JWT_SECRET || 'segredo123', // use variável de ambiente em produção
+            { expiresIn: '1d' }
+        );
+
         res.json({
-            message: 'Login realizado com sucesso!',
+            token,
             usuario: {
                 id: usuario.id,
                 nome: usuario.nome,
