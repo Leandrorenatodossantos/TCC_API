@@ -61,6 +61,7 @@ exports.deleteUsuario = (req, res) => {
 // ✅ Login do usuário
 exports.login = (req, res) => {
     const { email, senha } = req.body;
+    console.log('Login recebido:', req.body);
 
     db.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, results) => {
         if (err) return res.status(500).json({ error: err });
@@ -78,7 +79,7 @@ exports.login = (req, res) => {
 
         const token = jwt.sign(
             { id: usuario.id, email: usuario.email },
-            process.env.JWT_SECRET || 'segredo123', // use variável de ambiente em produção
+            process.env.JWT_SECRET || 
             { expiresIn: '1d' }
         );
 
