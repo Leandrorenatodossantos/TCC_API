@@ -2,10 +2,17 @@ const db = require('../config/database');
 
 exports.getContratos = (req, res) => {
     db.query('SELECT * FROM cadastro_contrato', (err, results) => {
-        if (err) res.status(500).json({ error: err });
-        else res.json(results);
+      if (err) return res.status(500).json({ error: err });
+  
+      const contratosSemUnderscore = results.map(item => ({
+        id: item.id,
+        codigocontrato: item.codigo_contrato,
+        descricaocontrato: item.descricao_contrato
+      }));
+  
+      res.json(contratosSemUnderscore);
     });
-};
+  };
 
 exports.createContrato = (req, res) => {
     const { codigo_contrato, descricao_contrato } = req.body;
@@ -36,3 +43,4 @@ exports.deleteContrato = (req, res) => {
             else res.json({ message: 'Contrato deletado com sucesso!' });
         });
 };
+
