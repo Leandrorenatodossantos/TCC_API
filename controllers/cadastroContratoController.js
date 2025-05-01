@@ -6,8 +6,8 @@ exports.getContratos = (req, res) => {
   
       const contratosSemUnderscore = results.map(item => ({
         id: item.id,
-        codigocontrato: item.codigo_contrato,
-        descricaocontrato: item.descricao_contrato
+        codigoContrato: item.codigo_contrato,
+        descricaoContrato: item.descricao_contrato
       }));
   
       res.json(contratosSemUnderscore);
