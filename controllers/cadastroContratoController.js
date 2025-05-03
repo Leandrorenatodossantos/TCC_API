@@ -25,15 +25,17 @@ exports.createContrato = (req, res) => {
 };
 
 exports.updateContrato = (req, res) => {
-    const { id } = req.params;
-    const { codigo_contrato, descricao_contrato } = req.body;
-    db.query('UPDATE cadastro_contrato SET codigo_contrato = ?, descricao_contrato = ? WHERE id = ?',
-        [codigo_contrato, descricao_contrato, id],
-        (err, result) => {
-            if (err) res.status(500).json({ error: err });
-            else res.json({ message: 'Contrato atualizado com sucesso!' });
-        });
-};
+    const { codigo_contrato } = req.params;
+    const { descricao_contrato } = req.body;
+    db.query(
+      'UPDATE cadastro_contrato SET descricao_contrato = ? WHERE codigo_contrato = ?',
+      [descricao_contrato, codigo_contrato],
+      (err, result) => {
+        if (err) res.status(500).json({ error: err });
+        else res.json({ message: 'Contrato atualizado com sucesso!' });
+      }
+    );
+  };
 
 exports.deleteContrato = (req, res) => {
     const { id } = req.params;
