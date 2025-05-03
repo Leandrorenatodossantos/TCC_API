@@ -4,8 +4,8 @@ const cadastroContratoController = require('../controllers/cadastroContratoContr
 
 router.get('/', cadastroContratoController.getContratos);
 router.post('/', cadastroContratoController.createContrato);
-//router.put('/:id', cadastroContratoController.updateContrato);
-router.put('/cadastro_contrato/:codigo_contrato', contratoController.updateContrato);
+router.put('/:id', cadastroContratoController.updateContrato);
+//router.put('/cadastro_contrato/:codigo_contrato', contratoController.updateContrato);
 router.delete('/:id', cadastroContratoController.deleteContrato);
 
 module.exports = router;
