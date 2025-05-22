@@ -2,8 +2,19 @@ const db = require('../config/database');
 
 exports.getServicos = (req, res) => {
     db.query('SELECT * FROM cadastro_servico', (err, results) => {
-        if (err) res.status(500).json({ error: err });
-        else res.json(results);
+        if (err) {
+            res.status(500).json({ error: err });
+        } else {
+            // Mapeando os campos para camelCase
+            const servicosFormatados = results.map((servico) => ({
+                id: servico.id,
+                contratoId: servico.contrato_id,
+                codigoServico: servico.codigo_servico,
+                descricaoServico: servico.descricao_servico
+            }));
+
+            res.json(servicosFormatados);
+        }
     });
 };
 
