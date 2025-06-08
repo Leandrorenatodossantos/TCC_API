@@ -8,9 +8,9 @@ exports.getEquipes = (req, res) => {
 };
 
 exports.createEquipe = (req, res) => {
-    const { Equipe, Descricao, Lider } = req.body;
-    db.query('INSERT INTO cadastro_equipe (Equipe, Descricao, Lider) VALUES (?, ?, ?)', 
-        [Equipe, Descricao, Lider], (err, result) => {
+    const { Equipe, descricao_equipe } = req.body;
+    db.query('INSERT INTO cadastro_equipe (Equipe, descricao_equipe) VALUES (?, ?)',
+        [Equipe, descricao_equipe], (err, result) => {
         if (err) res.status(500).json({ error: err });
         else res.json({ message: 'Equipe cadastrada com sucesso!' });
     });
