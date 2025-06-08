@@ -8,22 +8,28 @@ exports.getEquipes = (req, res) => {
 };
 
 exports.createEquipe = (req, res) => {
-    const { Equipe, descricao_equipe } = req.body;
-    db.query('INSERT INTO cadastro_equipe (Equipe, descricao_equipe) VALUES (?, ?)',
-        [Equipe, descricao_equipe], (err, result) => {
-        if (err) res.status(500).json({ error: err });
-        else res.json({ message: 'Equipe cadastrada com sucesso!' });
-    });
+    const { Equipe, Descricao, Lider } = req.body;
+    db.query(
+        'INSERT INTO cadastro_equipe (Equipe, `Descrição`, `Líder`) VALUES (?, ?, ?)',
+        [Equipe, Descricao, Lider],
+        (err, result) => {
+            if (err) res.status(500).json({ error: err });
+            else res.json({ message: 'Equipe cadastrada com sucesso!' });
+        }
+    );
 };
 
 exports.updateEquipe = (req, res) => {
     const { id } = req.params;
     const { Equipe, Descricao, Lider } = req.body;
-    db.query('UPDATE cadastro_equipe SET Equipe = ?, Descricao = ?, Lider = ? WHERE id_equipe = ?', 
-        [Equipe, Descricao, Lider, id], (err, result) => {
-        if (err) res.status(500).json({ error: err });
-        else res.json({ message: 'Equipe atualizada com sucesso!' });
-    });
+    db.query(
+        'UPDATE cadastro_equipe SET Equipe = ?, `Descrição` = ?, `Líder` = ? WHERE id_equipe = ?',
+        [Equipe, Descricao, Lider, id],
+        (err, result) => {
+            if (err) res.status(500).json({ error: err });
+            else res.json({ message: 'Equipe atualizada com sucesso!' });
+        }
+    );
 };
 
 exports.deleteEquipe = (req, res) => {
