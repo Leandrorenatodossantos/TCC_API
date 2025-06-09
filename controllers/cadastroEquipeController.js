@@ -10,7 +10,7 @@ exports.getEquipes = (req, res) => {
 exports.createEquipe = (req, res) => {
     const { Equipe, Descricao, Lider } = req.body;
     db.query(
-        'INSERT INTO cadastro_equipe (Equipe, `Descrição`, `Líder`) VALUES (?, ?, ?)',
+        'INSERT INTO cadastro_equipe (Equipe, `Descricao`, `Lider`) VALUES (?, ?, ?)',
         [Equipe, Descricao, Lider],
         (err, result) => {
             if (err) res.status(500).json({ error: err });
@@ -23,7 +23,7 @@ exports.updateEquipe = (req, res) => {
     const { id } = req.params;
     const { Equipe, Descricao, Lider } = req.body;
     db.query(
-        'UPDATE cadastro_equipe SET Equipe = ?, `Descrição` = ?, `Líder` = ? WHERE id_equipe = ?',
+        'UPDATE cadastro_equipe SET Equipe = ?, `Descricao` = ?, `Lider` = ? WHERE id_equipe = ?',
         [Equipe, Descricao, Lider, id],
         (err, result) => {
             if (err) res.status(500).json({ error: err });
